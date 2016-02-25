@@ -1,0 +1,439 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Main" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="logoSkorkel.ico" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" />
+    <title>:: Skorkel ::</title>
+    <link href="<%=ResolveUrl("Styles/style.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/MyStyle.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("css/ddsmoothmenu.css")%>"rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/jquery.autocomplete.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("css/stylever-2.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("docsupport/prism.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("docsupport/chosen.min.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/jquery.Jcrop.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Jsscroll/jquery.mCustomScrollbar.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/jquery.datepick.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("css/jquery.css")%>" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery-1.8.2.min.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery-ui.js")%>" ></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery.carouFredSel-6.2.1-packed.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery.autocomplete.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("Scripts/Chk.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery.mousewheel.min.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery.touchSwipe.min.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery.transit.min.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery.ba-throttle-debounce.min.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/PopupCenter.js")%>"></script>
+    <asp:ContentPlaceHolder ID="headMain" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager EnablePageMethods="true" EnablePartialRendering="true" ID="scriptmgr"
+        runat="server">
+    </asp:ScriptManager>
+    <asp:HiddenField ID="hdnTotalSearchCount" runat="server" ClientIDMode="Static" />
+    <div class="outterContainer" id="topHeader">
+        <div class="container">
+            <div class="topHeaderRight">
+                <div onmouseover="document.getElementById('dvNotification').style.display = 'none';document.getElementById('imgnotifyarrow').style.display = 'none';
+                document.getElementById('dvMessage').style.display = 'none';document.getElementById('imgtopmsgarrow').style.display = 'none';"
+                    class="profileDetails">
+                    <ul class="menu" id="menu">
+                        <li><a href="<%=ResolveUrl("Home.aspx")%>" class="menulink" style="color: #fff">
+                            <img id="imgProfilePic" style="width: 26px; height: 26px; border: 1px solid #CCC;"
+                                runat="server" align="absmiddle" clientidmode="Static" />
+                           <label runat="server" id="lblUserName" style="font-weight: normal;">
+                            </label>
+                            <img src="images/arrow.png" align="absmiddle" />
+                        </a>
+                            <ul style="width: 129px; float: right;">
+                                <li><a href="#" style="width: 118px; background: url(images/arrowNew.png) no-repeat 120px center #bfbfbf !important;">
+                                    SETTINGS</a>
+                                    <ul style="margin-left: -18px; margin-top: 6px;">
+                                        <li style="width: 130px;"><a href="ViewActivity.aspx">VIEW ACTIVITY</a></li>
+                                        <li style="width: 130px;"><a href="ViewLogs.aspx">VIEW LOG</a></li>
+                                        <li style="width: 130px;"><a href="Reset-Password.aspx">RESET PASSWORD</a></li>
+                                    </ul>
+                                </li>
+                                <li style="width: 130px;">
+                                    <asp:LinkButton ID="lnkSignOut" OnClientClick="javascript:lnkSignOut_Click();return false;"
+                                        runat="server">SIGN OUT</asp:LinkButton>
+                                    <asp:Button ID="btnSignOut" OnClick="lnkSignOut_Click" ClientIDMode="Static" Style="display: none;"
+                                        runat="server" />
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <br style="clear: left;" />
+                </div>
+                <div onmouseover="document.getElementById('dvNotification').style.display = 'block';document.getElementById('imgnotifyarrow').style.display = 'block';javascript:AddNotificationCount();
+                document.getElementById('dvMessage').style.display = 'none';document.getElementById('imgtopmsgarrow').style.display = 'none';"
+                    class="topBox">
+                    <asp:ImageButton ID="ImgNotification" ClientIDMode="Static" ImageUrl="images/notification.png"
+                        runat="server" />
+                    <div class="countBg" id="divNotification1">
+                        <div>
+                            <asp:Label ID="lblNotifyCount" runat="server" ClientIDMode="Static"></asp:Label>
+                        </div>
+                    </div>
+                    <asp:Image ID="imgnotifyarrow" runat="server" Style="display: none; margin-top: 2px;"
+                        ImageUrl="images/topArrow.png" ClientIDMode="Static" />
+                </div>
+                <div class="topBox" onmouseover="document.getElementById('dvNotification').style.display = 'none';document.getElementById('imgnotifyarrow').style.display = 'none';">
+                    <asp:ImageButton ID="ImgMessage" ClientIDMode="Static" ImageUrl="images/email.png"
+                        PostBackUrl="~/Inbox.aspx" runat="server" />
+                    <div class="countBg" id="divInbox">
+                        <div>
+                            <asp:Label ID="lblInboxCount" runat="server" ClientIDMode="Static"></asp:Label>
+                        </div>
+                    </div>
+                    <asp:Image ID="imgtopmsgarrow" runat="server" Style="display: none; margin-top: 2px;
+                        margin-left: 0px;" ImageUrl="images/topArrow.png" ClientIDMode="Static" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--header starts-->
+    <div class="outterContainerResearch" id="documents">
+        <div class="container">
+            <div class="topContainer">
+                <div class="logo">
+                    <a href="<%=ResolveUrl("Home.aspx")%>">
+                        <img src="images/logo-inner.png" alt="Skorkel" />
+                    </a>
+                </div>
+                <div style="width: 560px;" class="navigationInner">
+                    <ul class="menu" id="menuTop">
+                        <li><a href="<%=ResolveUrl("Home.aspx")%>">
+                            Home</a></li>
+                        <li><a href="<%=ResolveUrl("my-points.aspx")%>">My Skorkel</a></li>
+                        <li><a href="<%=ResolveUrl("Research_SearchResult_S.aspx")%>">Research</a> </li>
+                        <li><a href="#">Interact</a>
+                            <ul>
+                                <li><a href="<%=ResolveUrl("AllBlogs.aspx")%>">Blogs</a></li>
+                                <li><a href="<%=ResolveUrl("AllQuestionDetails.aspx")%>">Q &amp; A</a></li>
+                                <li><a href="<%=ResolveUrl("SearchGroup.aspx")%>">Groups</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div style="margin-left: 0px;" class="searchInner">
+                    <div class="searchBtn">
+                        <a href="#">
+                            <img src="images/search-icon.png" alt="search" /></a></div>
+                    <div class="search" id="searchTxt">
+                        <asp:TextBox ID="txtSearch" name="txtUsername" runat="server" placeholder="People, Groups"
+                            class="MastersearchTxt" ClientIDMode="Static"></asp:TextBox>
+                    </div>
+                </div>
+                <!--header ends-->
+                <div class="cls" style="height: 9px">
+                </div>
+                <div class="heading">
+                    <div class="container">
+                        <div class="headingNew">
+                            <label runat="server" id="lblmaster" style="font-weight: normal;">
+                            </label>
+                            <br />
+                            <span>
+                                <label runat="server" clientidmode="Static" id="lblmastercount">
+                                </label>
+                                <label runat="server" clientidmode="Static" id="lblmasterResult">
+                                </label>
+                                <label runat="server" clientidmode="Static" id="lblmastername">
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--Notification starts-->
+                <div id="dvNotification" onmouseover="document.getElementById('dvNotification').style.display = 'block';document.getElementById('imgnotifyarrow').style.display = 'block';"
+                    onmouseout="document.getElementById('dvNotification').style.display = 'none';document.getElementById('imgnotifyarrow').style.display = 'none';"
+                    runat="server" clientidmode="Static" style="display: none;" class="shownotification">
+                    <div style="margin-top: 3px;" class="cls">
+                    </div>
+                    <div class="Ntitlenotification">
+                        Notifications</div>
+                    <div style="margin-top: 5px;" class="cls">
+                    </div>
+                    <asp:UpdatePanel ClientIDMode="Static" ID="upsss" runat="server">
+                        <ContentTemplate>
+                            <asp:ListView ID="lstNotification" runat="server" OnItemCommand="lstNotification_ItemCommand"
+                                OnItemDataBound="lstNotification_ItemDataBound" OnItemDeleting="lstNotification_ItemDeleting">
+                                <LayoutTemplate>
+                                    <table cellpadding="0" cellspacing="0">
+                                        <tr id="itemPlaceHolder" runat="server">
+                                        </tr>
+                                    </table>
+                                </LayoutTemplate>
+                                <ItemTemplate>
+                                    <asp:HiddenField ID="hdnPkId" Value='<%# Eval("Id") %>' runat="server" />
+                                    <asp:HiddenField ID="hdnRegID" Value='<%# Eval("intRegistrationId") %>' runat="server" />
+                                    <asp:HiddenField ID="hdnintUserTypeId" runat="server" Value='<%#Eval("intUserTypeId") %>' />
+                                    <asp:HiddenField ID="hdnrequserid" Value='<%# Eval("intInvitedUserId") %>' runat="server" />
+                                    <asp:HiddenField ID="hdnTableName" Value='<%# Eval("strTableName") %>' runat="server" />
+                                    <asp:HiddenField ID="hdnShareInvitee" Value='<%# Eval("strInvitee") %>' runat="server" />
+                                    <asp:HiddenField ID="hdnStrRecommendation" Value='<%# Eval("StrRecommendation") %>'
+                                        runat="server" />
+                                    <asp:HiddenField ID="hdnIsAccept" Value='<%# Eval("IsAccept") %>' runat="server" />
+                                    <asp:HiddenField ID="hdnintIsAccept" Value='<%# Eval("intIsAccept") %>' runat="server" />
+                                    <!--result starts-->
+                                    <div class="NtitleSearchResult" id="SearchRept" runat="server">
+                                        <div class="thumbs">
+                                            <img id="imgprofile" runat="server" style='width: 27px; float: left; height: 30px'
+                                                src='<%# "CroppedPhoto/"+Eval("vchrPhotoPath")%>' />
+                                        </div>
+                                        <div class="searchs">
+                                            <p class="headings">
+                                                <span></span><span>
+                                                    <asp:LinkButton PostBackUrl="Notifications_Details_2.aspx" CommandName="Details"
+                                                        runat="server" ID="hyp" ToolTip="View Notification" Text='<%#Eval("Name") %>'>                                                                                                                                   
+                                                    </asp:LinkButton>
+                                                </span>
+                                            </p>
+                                            </span>
+                                            <asp:UpdatePanel ID="upmains" runat="server">
+                                                <ContentTemplate>
+                                                    <p class="Ndesignation breakallwords">
+                                                        <asp:Label ID="lblnotificationname" runat="server"></asp:Label><br />
+                                                        <asp:Label ID="lbDesignation" Text='<%#Eval("Designation") %>' runat="server"></asp:Label>
+                                                        <asp:LinkButton ID="lnkShareDetail" CommandName="ShareDetails" Style="color: #00B6BD;
+                                                            font-size: 12px; text-decoration: none;" runat="server"></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkQAshare" CommandName="QAShareDetails" Style="color: #00B6BD;
+                                                            font-size: 12px; text-decoration: none;" runat="server"></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkBlogshare" CommandName="BlogShareDetails" Style="color: #00B6BD;
+                                                            font-size: 12px; text-decoration: none;" runat="server"></asp:LinkButton>
+                                                        <asp:Label ID="lblComment" Text="" Visible="false" runat="server"></asp:Label>
+                                                        <asp:LinkButton ID="lnkCancel" CssClass="message lnkCancel" CommandName="Delete"
+                                                            CausesValidation="false" Style="" runat="server" Text="Decline"></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkConfirm" ClientIDMode="Static" CssClass="message lnkConfirm"
+                                                            CommandName="Confirm" CausesValidation="false" runat="server" Text="Accept"></asp:LinkButton>
+                                                        <asp:LinkButton Visible="false" ID="lnkConnected" CausesValidation="false" Style="color: #40CF8F;
+                                                            float: right; height: 25px; margin: 0px 20px 0; text-align: center; text-decoration: none;
+                                                            width: 82px; text-decoration: none; border: none;" runat="server" Text="Accepted"></asp:LinkButton>
+                                                    </p>
+                                                </ContentTemplate>
+                                                <Triggers>
+                                                    <asp:AsyncPostBackTrigger ControlID="lnkConfirm" />
+                                                    <asp:AsyncPostBackTrigger ControlID="lnkCancel" />
+                                                </Triggers>
+                                            </asp:UpdatePanel>
+                                            <div style="display: none;">
+                                                <asp:Label ID="lblEmailId" runat="server" Text='<%#Eval("vchrUserName") %>'></asp:Label>
+                                                <asp:Label ID="lblUserType" runat="server" Text='<%#Eval("intUserTypeID") %>'></asp:Label>
+                                                <asp:Label ID="lblGroupName" Font-Italic="true" runat="server" Text='<%#Eval("strGroupName") %>'></asp:Label>
+                                                <asp:Label ID="lblQAPath" Font-Italic="true" runat="server" Text='<%#Eval("StrRecommendation") %>'></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--result ends-->
+                                </ItemTemplate>
+                            </asp:ListView>
+                            <div id="dvAllNotifi" runat="server" style="text-align: center; margin-top: 180px;
+                                margin-bottom: 20px; display: none">
+                                <a href="Notifications_Details_2.aspx" id="aViewNotifications" runat="server" style="text-align: center;
+                                    color: Black; text-decoration: none;">View all notifications</a>
+                            </div>
+                            <asp:HiddenField ID="hdnEmailId" ClientIDMode="Static" runat="server" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+                <!--Notification ends-->
+                <div id="dvMessage" onmouseover="document.getElementById('dvMessage').style.display = 'block';document.getElementById('imgtopmsgarrow').style.display = 'block';"
+                    onmouseout="document.getElementById('dvMessage').style.display = 'none';document.getElementById('imgtopmsgarrow').style.display = 'none';"
+                    runat="server" clientidmode="Static" style="display: none;" class="shownotification">
+                    <div style="margin-top: 3px;" class="cls">
+                    </div>
+                    <div class="Ntitlenotification">
+                        Messages</div>
+                    <div style="margin-top: 5px;" class="cls">
+                    </div>
+                    <div id="dvAllMessages" runat="server" style="text-align: center; margin-top: 10px;
+                        margin-bottom: 20px; display: none">
+                        <a href="Inbox.aspx" id="a1" runat="server" style="text-align: center; color: Black;
+                            text-decoration: none;">View all messages</a>
+                    </div>
+                    <asp:HiddenField ID="HiddenField1" ClientIDMode="Static" runat="server" />
+                </div>
+                <!--Message ends-->
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    <p>
+                        </p>
+                </asp:ContentPlaceHolder>
+                <div class="cls">
+                </div>
+            </div>
+        </div>
+    </div>
+    <asp:HiddenField ID="hdnTotalItem" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="hdnCurrentPage" runat="server" ClientIDMode="Static" Value="1" />
+    <!--footer starts-->
+    <div class="outterContainer" id="footer" style="padding-bottom: 3px;">
+        <div class="container">
+            <div class="leftFooter">
+                <a href="AboutUs.aspx" target="_blank">About Us</a><br />
+                <a href="#">Skorkel Team</a>
+            </div>
+            <div class="leftFooter">
+                <a href="PrivacyPolicy.aspx" target="_blank">Privacy Policy</a><br />
+                <a href="TermsAndConditions.aspx"  target="_blank">Terms of Service</a>
+            </div>
+            <div class="leftFooter">
+                <a href="#">Contact</a><br />
+                &copy; Skorkel.com
+            </div>
+            <div class="rightFooter">
+                    <a href="https://www.facebook.com" target="_blank">
+                        <img src="images/fb.png" /></a> <a href="https://www.twitter.com" target="_blank">
+                            <img src="images/twitter.png" /></a> <a href="https://www.linkedin.com" target="_blank">
+                                <img src="images/linked-in.png" /></a>
+                </div>
+        </div>
+    </div>
+    <asp:HiddenField ID="hdnNotificationcount" runat="server" ClientIDMode="Static" />
+    <!--footer ends-->
+    </form>
+</body>
+<head>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#<%=txtSearch.ClientID%>").autocomplete("handler/Serach.ashx", {
+                width: 340, minChars: 3,
+                formatItem: function (data, i, n, value) {
+                    var srchtxt = document.getElementById("txtSearch").value;
+                    var Header = "";
+                    var ppl = "People";
+                    var org = "Organization";
+                    var grp = "Groups";
+                    var noRecord = "No Record";
+                    var url = "";
+                    var TopHeader = "";
+                    var urlppl = "";
+                    var urlgrp = "";
+                    var urlorg = "";
+                    var urlId = "";
+                    //Add link for individual record
+                    if (value.split(",")[6] == "People") {
+                        urlId = "Home.aspx?RegId=" + value.split(",")[5];
+                    }
+                    else if (value.split(",")[6] == "Organization") {
+                        urlId = "Home.aspx?RegId=" + value.split(",")[5];
+                    }
+                    else if (value.split(",")[6] == "Group") {
+                        urlId = "Group-Profile.aspx?GrpId=" + value.split(",")[5];
+                    } else if (value.split(",")[6] == "No Record") {
+                        urlId = "#";
+                    }
+                    //Add link for header
+                    if (value.split(",")[2] == "People") {
+                        Header = "<div style='background:none repeat scroll 0 0 #E9E9E9; font-weight:bold; font-size:small;'>" + "<img src='images/peoples-icon.png'/>" + ppl + "</div>";
+                        url = "SearchPeople.aspx";
+                    }
+                    else if (value.split(",")[2] == "Organization") {
+                        Header = "<div style='background:none repeat scroll 0 0 #E9E9E9; font-weight:bold; font-size:small;'>" + "<img src='images/groups-icon.png'/>" + org + "</div>";
+                        url = "SearchOrganization.aspx";
+                    }
+                    else if (value.split(",")[2] == "Group") {
+                        Header = "<div style='background:none repeat scroll 0 0 #E9E9E9; font-weight:bold; font-size:small;'>" + "<img src='images/organization-icon.png'/>" + grp + "</div>";
+                        url = "SearchGroup.aspx";
+                    } else if (value.split(",")[2] == "No Record") {
+                        Header = "<div style='background:none repeat scroll 0 0 #E9E9E9; font-weight:bold; font-size:small;'>" + "<img src='images/peoples-icon.png'/>" + noRecord + "</div>";
+                    }
+                    //Add link for main header for only first time
+                    if (i == 1) {
+                        urlppl = "SearchPeople.aspx";
+                        urlgrp = "SearchGroup.aspx";
+                        urlorg = "SearchOrganization.aspx";
+
+                        TopHeader = "<a style = 'color:Black; font-weight:bold; font-size:small; text-decoration:none !important;border: 3px solid #FFF;background:none repeat scroll 0 0 #E9E9E9;' onclick=\"Open('" + urlppl + "');\" href='#'>" + "<img src='images/peoples-icon.png'/>" + "&nbsp;" + ppl + "</a>" + "&nbsp;&nbsp;" +
+                        "<a style = 'color:Black; font-weight:bold; font-size:small; text-decoration:none !important;border: 3px solid #FFF;background:none repeat scroll 0 0 #E9E9E9;' onclick=\"Open('" + urlgrp + "');\" href='#'>" + "<img src='images/groups-icon.png'/>" + "&nbsp;" + grp + "</a>" + "&nbsp;&nbsp;" +
+                        "<a style = 'color:Black; font-weight:bold; font-size:small; text-decoration:none !important;border: 3px solid #FFF;background:none repeat scroll 0 0 #E9E9E9;' onclick=\"Open('" + urlorg + "');\" href='#'>" + "<img src='images/organization-icon.png'/>" + "&nbsp;" + org + "</a>" + "<br>&nbsp;";
+                    }
+
+                    URL = "<a id='txtid' style = 'color:Black; font-weight:bold; font-size:smaller; text-decoration:none !important;width:150px !important;' onclick=\"Open('" + url + "');\" href='" + urlId + "'>" + Header + "</a>" + "<br>" + "<img style = 'width: 27px; float: left;height:30px' src='CroppedPhoto/" + value.split(",")[1] + "'/> " + "&nbsp;&nbsp;" +
+                    "<a id='txtid' class='ac_over' title='View Profile' style = 'text-decoration:none !important;padding-right: 37%;padding-bottom: 15px;padding-top: 12px;' onclick=\"Open('" + urlId + "');\" href='" + urlId + "'>" + value.split(",")[0] + "</a>" + "<br>&nbsp;&nbsp;" + value.split(",")[3];
+                    return URL;
+                },
+                formatResult: function (data, value) {
+                    return value.split(",")[0];
+                }
+            });
+            if ($("#lblNotifyCount").text() == '0') {
+                document.getElementById("divNotification1").style.display = "none";
+            }
+            if ($("#lblInboxCount").text() == '0') {
+                document.getElementById("divInbox").style.display = "none";
+            } else {
+
+            }
+        });
+        function Open(URL) {
+            window.location = URL;
+        }
+        function CallUserMethod() {
+            document.getElementById('btnAccept').click();
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var v = "";
+            $("#txtSearch").keydown(function (e) {
+                if (e.keyCode == 38 || e.keyCode == 40) {
+                    if ($('.ulclick').find('.ac_over1').val() == '') {
+                        v = $('.ac_over1').find('.ac_over').attr('href');
+                    }
+                }
+                if (e.keyCode == 13) {
+                    if (v != "") {
+                        window.location = v;
+                    } else {
+                        if ($('.ac_over').attr('href') != undefined) {
+                            if ($('.ac_over').attr('href') != '#') {
+                                window.location = $('.ac_over').attr('href');
+                            } else { return false; }
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            });
+        });
+        function lnkSignOut_Click() {
+            document.getElementById("btnSignOut").click();
+        }
+    </script>
+</head>
+</html>
+<script type="text/javascript">
+    function AddNotificationCount() {
+        var result = '';
+        var NotificationId = document.getElementById("hdnNotificationcount").value;
+        $.ajax({
+            url: "handler/NotificationCount.ashx?NotificationId=" + NotificationId,
+            dataType: "html",
+            data: { method: 'ProcessRequest', args: { context: NotificationId} },
+            success: function (data) {
+                if (data == 1) {
+                    document.getElementById("lblNotifyCount").style.display = "none";
+                    document.getElementById("divNotification1").style.display = "none";
+                }
+                else {
+                    document.getElementById("lblNotifyCount").style.display = "none";
+                    document.getElementById("divNotification1").style.display = "none";
+                }
+            }
+        });
+    }
+</script>
+<script type="text/javascript">
+    var menu = new menu.dd("menu");
+    menu.init("menu", "menuhover");
+
+    var menuTop = new menuTop.dd("menuTop");
+    menuTop.init("menuTop", "menuhover");
+</script>
